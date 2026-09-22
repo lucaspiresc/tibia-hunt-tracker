@@ -1,0 +1,37 @@
+name: build-windows
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+jobs:
+  executable:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: python -m pip install -r requirements-dev.txt -e .
+      - name: Run tests
+        run: python -m unittest discover -s tests -v
+      - name: Generate spoken alerts
+        run: python scripts/generate_audio.py
+      - name: Build executable
+        shell: pwsh
+        run: |
+          pyinstaller --noconfirm --clean --onefile --windowed `
+            --name TibiaHuntTracker `
+            --paths src `
+            --add-data "data/tracker_catalog.json;data" `
+            --add-data "data/audio;data/audio" `
+            --collect-all pyttsx3 `
+            run.py
+      - name: Upload executable
+        uses: actions/upload-artifact@v4
+        with:
+          name: TibiaHuntTracker-Windows
+          path: dist/TibiaHuntTracker.exe
+          if-no-files-found: error
