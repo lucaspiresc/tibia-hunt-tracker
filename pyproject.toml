@@ -4,12 +4,11 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "tibia-hunt-tracker"
-version = "0.1.0"
+version = "0.2.0"
 description = "Offline timers for temporary Tibia items and spells"
 requires-python = ">=3.11"
 dependencies = [
   "pyttsx3>=2.90",
-  "winotify>=1.1.0; platform_system == 'Windows'",
 ]
 
 [project.scripts]
