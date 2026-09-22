@@ -65,7 +65,7 @@ class PresetStore:
     def _write(self) -> None:
         self.path.parent.mkdir(parents=True, exist_ok=True)
         payload = {
-            "schema_version": 1,
+            "schema_version": 2,
             "presets": {
                 name: [config.to_dict() for config in configs]
                 for name, configs in sorted(self._presets.items())

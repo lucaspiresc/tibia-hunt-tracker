@@ -72,8 +72,8 @@ class HuntTrackerApp:
         self.preset_var = tk.StringVar(value=self.current_preset)
         self.duration_var = tk.StringVar()
         self.warning_var = tk.StringVar()
-        self.voice_var = tk.BooleanVar(value=True)
-        self.notification_var = tk.BooleanVar(value=True)
+        self.voice_label_var = tk.StringVar()
+        self.audio_var = tk.BooleanVar(value=True)
         self.topmost_var = tk.BooleanVar(value=True)
         self.compact_var = tk.BooleanVar(value=False)
         self.hunt_time_var = tk.StringVar(value="Hunt 00:00")
@@ -192,8 +192,9 @@ class HuntTrackerApp:
         ttk.Entry(edit, textvariable=self.duration_var, width=10).grid(row=1, column=0, sticky="w")
         ttk.Label(edit, text="Avisar antes (s)", style="Panel.TLabel").grid(row=0, column=1, sticky="w", padx=(10, 0))
         ttk.Entry(edit, textvariable=self.warning_var, width=9).grid(row=1, column=1, sticky="w", padx=(10, 0))
-        ttk.Checkbutton(edit, text="Voz", variable=self.voice_var).grid(row=1, column=2, padx=(12, 0))
-        ttk.Checkbutton(edit, text="Notificação", variable=self.notification_var).grid(row=1, column=3, padx=(8, 0))
+        ttk.Label(edit, text="Texto falado", style="Panel.TLabel").grid(row=0, column=2, sticky="w", padx=(10, 0))
+        ttk.Entry(edit, textvariable=self.voice_label_var, width=24).grid(row=1, column=2, sticky="ew", padx=(10, 0))
+        ttk.Checkbutton(edit, text="Áudio falado", variable=self.audio_var).grid(row=1, column=3, padx=(12, 0))
         ttk.Button(edit, text="Aplicar", command=self._apply_timer_edit).grid(row=1, column=4, padx=(12, 2))
         ttk.Button(edit, text="Remover", command=self._remove_selected_timer).grid(row=1, column=5, padx=2)
 
@@ -273,8 +274,8 @@ class HuntTrackerApp:
         config = self.configs[timer_id]
         self.duration_var.set(format_seconds(config.duration_seconds))
         self.warning_var.set(str(config.warning_seconds))
-        self.voice_var.set(config.voice_enabled)
-        self.notification_var.set(config.notification_enabled)
+        self.voice_label_var.set(config.voice_label)
+        self.audio_var.set(config.audio_enabled)
 
     def _apply_timer_edit(self) -> None:
         if self._configuration_locked():
@@ -290,11 +291,10 @@ class HuntTrackerApp:
             updated = TimerConfig(
                 catalog_id=old.catalog_id,
                 name=old.name,
-                voice_label=old.voice_label,
+                voice_label=self.voice_label_var.get().strip() or old.name,
                 duration_seconds=duration,
                 warning_seconds=warning,
-                voice_enabled=self.voice_var.get(),
-                notification_enabled=self.notification_var.get(),
+                audio_enabled=self.audio_var.get(),
             )
         except (ValueError, TypeError) as exc:
             messagebox.showerror("Configuração inválida", str(exc), parent=self.root)
@@ -348,6 +348,7 @@ class HuntTrackerApp:
             messagebox.showwarning("Sem timers", "Adicione pelo menos um item ou spell.", parent=self.root)
             return
         self.presets.save(self.current_preset, list(self.configs.values()))
+        self.alerts.prepare(self.configs.values())
         self.engine.start(list(self.configs.values()))
         self.start_button.configure(state="disabled")
         self.stop_button.configure(state="normal")

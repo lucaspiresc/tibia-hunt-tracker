@@ -42,8 +42,7 @@ class TimerConfig:
     voice_label: str
     duration_seconds: int
     warning_seconds: int
-    voice_enabled: bool = True
-    notification_enabled: bool = True
+    audio_enabled: bool = True
 
     def __post_init__(self) -> None:
         if self.duration_seconds <= 0:
@@ -56,12 +55,17 @@ class TimerConfig:
 
     @classmethod
     def from_dict(cls, payload: dict[str, Any]) -> "TimerConfig":
+        if "audio_enabled" in payload:
+            audio_enabled = bool(payload["audio_enabled"])
+        elif "voice_enabled" in payload:
+            audio_enabled = bool(payload["voice_enabled"])
+        else:
+            audio_enabled = bool(payload.get("notification_enabled", True))
         return cls(
             catalog_id=str(payload["catalog_id"]),
             name=str(payload["name"]),
             voice_label=str(payload.get("voice_label") or payload["name"]),
             duration_seconds=int(payload["duration_seconds"]),
             warning_seconds=int(payload.get("warning_seconds", 0)),
-            voice_enabled=bool(payload.get("voice_enabled", True)),
-            notification_enabled=bool(payload.get("notification_enabled", True)),
+            audio_enabled=audio_enabled,
         )
