@@ -1,0 +1,849 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-09-21T14:05:45+00:00",
+  "description": "Active, fixed-duration effects recommended for the Tibia Hunt Tracker.",
+  "entries": [
+    {
+      "id": "item_axe_ring",
+      "name": "Axe Ring",
+      "entity_type": "item",
+      "duration_seconds": 1800,
+      "default_warning_seconds": 30,
+      "voice_label": "Axe Ring",
+      "source_page": "https://tibia.fandom.com/wiki/Axe_Ring",
+      "vocations": "all",
+      "item_category": "ring"
+    },
+    {
+      "id": "item_charged_alicorn_ring",
+      "name": "Charged Alicorn Ring",
+      "entity_type": "item",
+      "duration_seconds": 10800,
+      "default_warning_seconds": 30,
+      "voice_label": "Charged Alicorn Ring",
+      "source_page": "https://tibia.fandom.com/wiki/Charged_Alicorn_Ring",
+      "vocations": "paladins",
+      "item_category": "ring"
+    },
+    {
+      "id": "item_charged_arboreal_ring",
+      "name": "Charged Arboreal Ring",
+      "entity_type": "item",
+      "duration_seconds": 10800,
+      "default_warning_seconds": 30,
+      "voice_label": "Charged Arboreal Ring",
+      "source_page": "https://tibia.fandom.com/wiki/Charged_Arboreal_Ring",
+      "vocations": "druids",
+      "item_category": "ring"
+    },
+    {
+      "id": "item_charged_ethereal_ring",
+      "name": "Charged Ethereal Ring",
+      "entity_type": "item",
+      "duration_seconds": 10800,
+      "default_warning_seconds": 30,
+      "voice_label": "Charged Ethereal Ring",
+      "source_page": "https://tibia.fandom.com/wiki/Charged_Ethereal_Ring",
+      "vocations": "monks",
+      "item_category": "ring"
+    },
+    {
+      "id": "item_charged_spiritthorn_ring",
+      "name": "Charged Spiritthorn Ring",
+      "entity_type": "item",
+      "duration_seconds": 10800,
+      "default_warning_seconds": 30,
+      "voice_label": "Charged Spiritthorn Ring",
+      "source_page": "https://tibia.fandom.com/wiki/Charged_Spiritthorn_Ring",
+      "vocations": "knights",
+      "item_category": "ring"
+    },
+    {
+      "id": "item_club_ring",
+      "name": "Club Ring",
+      "entity_type": "item",
+      "duration_seconds": 1800,
+      "default_warning_seconds": 30,
+      "voice_label": "Club Ring",
+      "source_page": "https://tibia.fandom.com/wiki/Club_Ring",
+      "vocations": "all",
+      "item_category": "ring"
+    },
+    {
+      "id": "item_collar_of_blue_plasma",
+      "name": "Collar of Blue Plasma",
+      "entity_type": "item",
+      "duration_seconds": 1800,
+      "default_warning_seconds": 30,
+      "voice_label": "Collar of Blue Plasma",
+      "source_page": "https://tibia.fandom.com/wiki/Collar_of_Blue_Plasma",
+      "vocations": "paladins",
+      "item_category": "amulet_necklace"
+    },
+    {
+      "id": "item_collar_of_green_plasma",
+      "name": "Collar of Green Plasma",
+      "entity_type": "item",
+      "duration_seconds": 1800,
+      "default_warning_seconds": 30,
+      "voice_label": "Collar of Green Plasma",
+      "source_page": "https://tibia.fandom.com/wiki/Collar_of_Green_Plasma",
+      "vocations": "sorcerers and druids",
+      "item_category": "amulet_necklace"
+    },
+    {
+      "id": "item_collar_of_orange_plasma",
+      "name": "Collar of Orange Plasma",
+      "entity_type": "item",
+      "duration_seconds": 1800,
+      "default_warning_seconds": 30,
+      "voice_label": "Collar of Orange Plasma",
+      "source_page": "https://tibia.fandom.com/wiki/Collar_of_Orange_Plasma",
+      "vocations": "monks",
+      "item_category": "amulet_necklace"
+    },
+    {
+      "id": "item_collar_of_red_plasma",
+      "name": "Collar of Red Plasma",
+      "entity_type": "item",
+      "duration_seconds": 1800,
+      "default_warning_seconds": 30,
+      "voice_label": "Collar of Red Plasma",
+      "source_page": "https://tibia.fandom.com/wiki/Collar_of_Red_Plasma",
+      "vocations": "knights",
+      "item_category": "amulet_necklace"
+    },
+    {
+      "id": "item_death_ring",
+      "name": "Death Ring",
+      "entity_type": "item",
+      "duration_seconds": 450,
+      "default_warning_seconds": 30,
+      "voice_label": "Death Ring",
+      "source_page": "https://tibia.fandom.com/wiki/Death_Ring",
+      "vocations": "all",
+      "item_category": "ring"
+    },
+    {
+      "id": "item_dwarven_ring",
+      "name": "Dwarven Ring",
+      "entity_type": "item",
+      "duration_seconds": 3600,
+      "default_warning_seconds": 30,
+      "voice_label": "Dwarven Ring",
+      "source_page": "https://tibia.fandom.com/wiki/Dwarven_Ring",
+      "vocations": "all",
+      "item_category": "ring"
+    },
+    {
+      "id": "item_enchanted_blister_ring",
+      "name": "Enchanted Blister Ring",
+      "entity_type": "item",
+      "duration_seconds": 3600,
+      "default_warning_seconds": 30,
+      "voice_label": "Enchanted Blister Ring",
+      "source_page": "https://tibia.fandom.com/wiki/Enchanted_Blister_Ring",
+      "vocations": "all",
+      "item_category": "ring"
+    },
+    {
+      "id": "item_enchanted_flamingo_amulet_of_destruction",
+      "name": "Enchanted Flamingo Amulet of Destruction",
+      "entity_type": "item",
+      "duration_seconds": 10800,
+      "default_warning_seconds": 30,
+      "voice_label": "Enchanted Flamingo Amulet of Destruction",
+      "source_page": "https://tibia.fandom.com/wiki/Enchanted_Flamingo_Amulet_of_Destruction",
+      "vocations": "sorcerers",
+      "item_category": "amulet_necklace"
+    },
+    {
+      "id": "item_enchanted_flamingo_amulet_of_nature",
+      "name": "Enchanted Flamingo Amulet of Nature",
+      "entity_type": "item",
+      "duration_seconds": 10800,
+      "default_warning_seconds": 30,
+      "voice_label": "Enchanted Flamingo Amulet of Nature",
+      "source_page": "https://tibia.fandom.com/wiki/Enchanted_Flamingo_Amulet_of_Nature",
+      "vocations": "druids",
+      "item_category": "amulet_necklace"
+    },
+    {
+      "id": "item_enchanted_flamingo_amulet_of_precision",
+      "name": "Enchanted Flamingo Amulet of Precision",
+      "entity_type": "item",
+      "duration_seconds": 10800,
+      "default_warning_seconds": 30,
+      "voice_label": "Enchanted Flamingo Amulet of Precision",
+      "source_page": "https://tibia.fandom.com/wiki/Enchanted_Flamingo_Amulet_of_Precision",
+      "vocations": "paladins",
+      "item_category": "amulet_necklace"
+    },
+    {
+      "id": "item_enchanted_flamingo_amulet_of_valor",
+      "name": "Enchanted Flamingo Amulet of Valor",
+      "entity_type": "item",
+      "duration_seconds": 10800,
+      "default_warning_seconds": 30,
+      "voice_label": "Enchanted Flamingo Amulet of Valor",
+      "source_page": "https://tibia.fandom.com/wiki/Enchanted_Flamingo_Amulet_of_Valor",
+      "vocations": "knights",
+      "item_category": "amulet_necklace"
+    },
+    {
+      "id": "item_enchanted_merudri_brooch",
+      "name": "Enchanted Merudri Brooch",
+      "entity_type": "item",
+      "duration_seconds": 7200,
+      "default_warning_seconds": 30,
+      "voice_label": "Enchanted Merudri Brooch",
+      "source_page": "https://tibia.fandom.com/wiki/Enchanted_Merudri_Brooch",
+      "vocations": "monks",
+      "item_category": "amulet_necklace"
+    },
+    {
+      "id": "item_enchanted_pendulet",
+      "name": "Enchanted Pendulet",
+      "entity_type": "item",
+      "duration_seconds": 7200,
+      "default_warning_seconds": 30,
+      "voice_label": "Enchanted Pendulet",
+      "source_page": "https://tibia.fandom.com/wiki/Enchanted_Pendulet",
+      "vocations": "paladins",
+      "item_category": "amulet_necklace"
+    },
+    {
+      "id": "item_enchanted_sleep_shawl",
+      "name": "Enchanted Sleep Shawl",
+      "entity_type": "item",
+      "duration_seconds": 3600,
+      "default_warning_seconds": 30,
+      "voice_label": "Enchanted Sleep Shawl",
+      "source_page": "https://tibia.fandom.com/wiki/Enchanted_Sleep_Shawl",
+      "vocations": "paladins",
+      "item_category": "amulet_necklace"
+    },
+    {
+      "id": "item_enchanted_swan_amulet_of_balance",
+      "name": "Enchanted Swan Amulet of Balance",
+      "entity_type": "item",
+      "duration_seconds": 10800,
+      "default_warning_seconds": 30,
+      "voice_label": "Enchanted Swan Amulet of Balance",
+      "source_page": "https://tibia.fandom.com/wiki/Enchanted_Swan_Amulet_of_Balance",
+      "vocations": "monks",
+      "item_category": "amulet_necklace"
+    },
+    {
+      "id": "item_enchanted_theurgic_amulet",
+      "name": "Enchanted Theurgic Amulet",
+      "entity_type": "item",
+      "duration_seconds": 7200,
+      "default_warning_seconds": 30,
+      "voice_label": "Enchanted Theurgic Amulet",
+      "source_page": "https://tibia.fandom.com/wiki/Enchanted_Theurgic_Amulet",
+      "vocations": "sorcerers and druids",
+      "item_category": "amulet_necklace"
+    },
+    {
+      "id": "item_enchanted_turtle_amulet",
+      "name": "Enchanted Turtle Amulet",
+      "entity_type": "item",
+      "duration_seconds": 7200,
+      "default_warning_seconds": 30,
+      "voice_label": "Enchanted Turtle Amulet",
+      "source_page": "https://tibia.fandom.com/wiki/Enchanted_Turtle_Amulet",
+      "vocations": "knights",
+      "item_category": "amulet_necklace"
+    },
+    {
+      "id": "item_enchanted_werewolf_amulet",
+      "name": "Enchanted Werewolf Amulet",
+      "entity_type": "item",
+      "duration_seconds": 3600,
+      "default_warning_seconds": 30,
+      "voice_label": "Enchanted Werewolf Amulet",
+      "source_page": "https://tibia.fandom.com/wiki/Enchanted_Werewolf_Amulet",
+      "vocations": "all",
+      "item_category": "amulet_necklace"
+    },
+    {
+      "id": "item_energy_ring",
+      "name": "Energy Ring",
+      "entity_type": "item",
+      "duration_seconds": 600,
+      "default_warning_seconds": 30,
+      "voice_label": "Energy Ring",
+      "source_page": "https://tibia.fandom.com/wiki/Energy_Ring",
+      "vocations": "knights, paladins and monks",
+      "item_category": "ring"
+    },
+    {
+      "id": "item_life_ring",
+      "name": "Life Ring",
+      "entity_type": "item",
+      "duration_seconds": 1200,
+      "default_warning_seconds": 30,
+      "voice_label": "Life Ring",
+      "source_page": "https://tibia.fandom.com/wiki/Life_Ring",
+      "vocations": "all",
+      "item_category": "ring"
+    },
+    {
+      "id": "item_power_ring",
+      "name": "Power Ring",
+      "entity_type": "item",
+      "duration_seconds": 1800,
+      "default_warning_seconds": 30,
+      "voice_label": "Power Ring",
+      "source_page": "https://tibia.fandom.com/wiki/Power_Ring",
+      "vocations": "all",
+      "item_category": "ring"
+    },
+    {
+      "id": "item_prismatic_ring",
+      "name": "Prismatic Ring",
+      "entity_type": "item",
+      "duration_seconds": 3600,
+      "default_warning_seconds": 30,
+      "voice_label": "Prismatic Ring",
+      "source_page": "https://tibia.fandom.com/wiki/Prismatic_Ring",
+      "vocations": "all",
+      "item_category": "ring"
+    },
+    {
+      "id": "item_ring_of_blue_plasma",
+      "name": "Ring of Blue Plasma",
+      "entity_type": "item",
+      "duration_seconds": 1800,
+      "default_warning_seconds": 30,
+      "voice_label": "Ring of Blue Plasma",
+      "source_page": "https://tibia.fandom.com/wiki/Ring_of_Blue_Plasma",
+      "vocations": "paladins",
+      "item_category": "ring"
+    },
+    {
+      "id": "item_ring_of_green_plasma",
+      "name": "Ring of Green Plasma",
+      "entity_type": "item",
+      "duration_seconds": 1800,
+      "default_warning_seconds": 30,
+      "voice_label": "Ring of Green Plasma",
+      "source_page": "https://tibia.fandom.com/wiki/Ring_of_Green_Plasma",
+      "vocations": "sorcerers and druids",
+      "item_category": "ring"
+    },
+    {
+      "id": "item_ring_of_healing",
+      "name": "Ring of Healing",
+      "entity_type": "item",
+      "duration_seconds": 450,
+      "default_warning_seconds": 30,
+      "voice_label": "Ring of Healing",
+      "source_page": "https://tibia.fandom.com/wiki/Ring_of_Healing",
+      "vocations": "all",
+      "item_category": "ring"
+    },
+    {
+      "id": "item_ring_of_orange_plasma",
+      "name": "Ring of Orange Plasma",
+      "entity_type": "item",
+      "duration_seconds": 1800,
+      "default_warning_seconds": 30,
+      "voice_label": "Ring of Orange Plasma",
+      "source_page": "https://tibia.fandom.com/wiki/Ring_of_Orange_Plasma",
+      "vocations": "monks",
+      "item_category": "ring"
+    },
+    {
+      "id": "item_ring_of_red_plasma",
+      "name": "Ring of Red Plasma",
+      "entity_type": "item",
+      "duration_seconds": 1800,
+      "default_warning_seconds": 30,
+      "voice_label": "Ring of Red Plasma",
+      "source_page": "https://tibia.fandom.com/wiki/Ring_of_Red_Plasma",
+      "vocations": "knights",
+      "item_category": "ring"
+    },
+    {
+      "id": "item_ring_of_souls",
+      "name": "Ring of Souls",
+      "entity_type": "item",
+      "duration_seconds": 7200,
+      "default_warning_seconds": 30,
+      "voice_label": "Ring of Souls",
+      "source_page": "https://tibia.fandom.com/wiki/Ring_of_Souls",
+      "vocations": "all",
+      "item_category": "ring"
+    },
+    {
+      "id": "item_shapeshifter_ring",
+      "name": "Shapeshifter Ring",
+      "entity_type": "item",
+      "duration_seconds": 36000,
+      "default_warning_seconds": 30,
+      "voice_label": "Shapeshifter Ring",
+      "source_page": "https://tibia.fandom.com/wiki/Shapeshifter_Ring",
+      "vocations": "all",
+      "item_category": "ring"
+    },
+    {
+      "id": "item_star_ring",
+      "name": "Star Ring",
+      "entity_type": "item",
+      "duration_seconds": 600,
+      "default_warning_seconds": 30,
+      "voice_label": "Star Ring",
+      "source_page": "https://tibia.fandom.com/wiki/Star_Ring",
+      "vocations": "without",
+      "item_category": "ring"
+    },
+    {
+      "id": "item_stealth_ring",
+      "name": "Stealth Ring",
+      "entity_type": "item",
+      "duration_seconds": 600,
+      "default_warning_seconds": 30,
+      "voice_label": "Stealth Ring",
+      "source_page": "https://tibia.fandom.com/wiki/Stealth_Ring",
+      "vocations": "all",
+      "item_category": "ring"
+    },
+    {
+      "id": "item_sword_ring",
+      "name": "Sword Ring",
+      "entity_type": "item",
+      "duration_seconds": 1800,
+      "default_warning_seconds": 30,
+      "voice_label": "Sword Ring",
+      "source_page": "https://tibia.fandom.com/wiki/Sword_Ring",
+      "vocations": "all",
+      "item_category": "ring"
+    },
+    {
+      "id": "item_time_ring",
+      "name": "Time Ring",
+      "entity_type": "item",
+      "duration_seconds": 600,
+      "default_warning_seconds": 30,
+      "voice_label": "Time Ring",
+      "source_page": "https://tibia.fandom.com/wiki/Time_Ring",
+      "vocations": "all",
+      "item_category": "ring"
+    },
+    {
+      "id": "spell_avatar_of_balance",
+      "name": "Avatar of Balance",
+      "entity_type": "spell",
+      "duration_seconds": 15,
+      "default_warning_seconds": 5,
+      "voice_label": "uteta res tio",
+      "source_page": "https://tibia.fandom.com/wiki/Avatar_of_Balance",
+      "words": "uteta res tio",
+      "vocations": [
+        "monk"
+      ],
+      "effect_kind": "self_buff"
+    },
+    {
+      "id": "spell_avatar_of_light",
+      "name": "Avatar of Light",
+      "entity_type": "spell",
+      "duration_seconds": 15,
+      "default_warning_seconds": 5,
+      "voice_label": "uteta res sac",
+      "source_page": "https://tibia.fandom.com/wiki/Avatar_of_Light",
+      "words": "uteta res sac",
+      "vocations": [
+        "paladin"
+      ],
+      "effect_kind": "self_buff"
+    },
+    {
+      "id": "spell_avatar_of_nature",
+      "name": "Avatar of Nature",
+      "entity_type": "spell",
+      "duration_seconds": 15,
+      "default_warning_seconds": 5,
+      "voice_label": "uteta res dru",
+      "source_page": "https://tibia.fandom.com/wiki/Avatar_of_Nature",
+      "words": "uteta res dru",
+      "vocations": [
+        "druid"
+      ],
+      "effect_kind": "self_buff"
+    },
+    {
+      "id": "spell_avatar_of_steel",
+      "name": "Avatar of Steel",
+      "entity_type": "spell",
+      "duration_seconds": 15,
+      "default_warning_seconds": 5,
+      "voice_label": "uteta res eq",
+      "source_page": "https://tibia.fandom.com/wiki/Avatar_of_Steel",
+      "words": "uteta res eq",
+      "vocations": [
+        "knight"
+      ],
+      "effect_kind": "self_buff"
+    },
+    {
+      "id": "spell_avatar_of_storm",
+      "name": "Avatar of Storm",
+      "entity_type": "spell",
+      "duration_seconds": 15,
+      "default_warning_seconds": 5,
+      "voice_label": "uteta res ven",
+      "source_page": "https://tibia.fandom.com/wiki/Avatar_of_Storm",
+      "words": "uteta res ven",
+      "vocations": [
+        "sorcerer"
+      ],
+      "effect_kind": "self_buff"
+    },
+    {
+      "id": "spell_charge",
+      "name": "Charge",
+      "entity_type": "spell",
+      "duration_seconds": 5,
+      "default_warning_seconds": 1,
+      "voice_label": "utani tempo hur",
+      "source_page": "https://tibia.fandom.com/wiki/Charge",
+      "words": "utani tempo hur",
+      "vocations": [
+        "knight"
+      ],
+      "effect_kind": "self_buff"
+    },
+    {
+      "id": "spell_creature_illusion",
+      "name": "Creature Illusion",
+      "entity_type": "spell",
+      "duration_seconds": 180,
+      "default_warning_seconds": 15,
+      "voice_label": "utevo res ina \"creature\"",
+      "source_page": "https://tibia.fandom.com/wiki/Creature_Illusion",
+      "words": "utevo res ina \"creature\"",
+      "vocations": [
+        "druid",
+        "sorcerer"
+      ],
+      "effect_kind": "illusion"
+    },
+    {
+      "id": "spell_enchant_party",
+      "name": "Enchant Party",
+      "entity_type": "spell",
+      "duration_seconds": 120,
+      "default_warning_seconds": 15,
+      "voice_label": "utori mas sio",
+      "source_page": "https://tibia.fandom.com/wiki/Enchant_Party",
+      "words": "utori mas sio",
+      "vocations": [
+        "sorcerer"
+      ],
+      "effect_kind": "party_buff"
+    },
+    {
+      "id": "spell_focus_serenity",
+      "name": "Focus Serenity",
+      "entity_type": "spell",
+      "duration_seconds": 7,
+      "default_warning_seconds": 2,
+      "voice_label": "utamo tio",
+      "source_page": "https://tibia.fandom.com/wiki/Focus_Serenity",
+      "words": "utamo tio",
+      "vocations": [
+        "monk"
+      ],
+      "effect_kind": "self_buff"
+    },
+    {
+      "id": "spell_great_light",
+      "name": "Great Light",
+      "entity_type": "spell",
+      "duration_seconds": 695,
+      "default_warning_seconds": 30,
+      "voice_label": "utevo gran lux",
+      "source_page": "https://tibia.fandom.com/wiki/Great_Light",
+      "words": "utevo gran lux",
+      "vocations": [
+        "druid",
+        "sorcerer",
+        "paladin",
+        "knight",
+        "monk"
+      ],
+      "effect_kind": "light"
+    },
+    {
+      "id": "spell_haste",
+      "name": "Haste",
+      "entity_type": "spell",
+      "duration_seconds": 30,
+      "default_warning_seconds": 10,
+      "voice_label": "utani hur",
+      "source_page": "https://tibia.fandom.com/wiki/Haste",
+      "words": "utani hur",
+      "vocations": [
+        "druid",
+        "sorcerer",
+        "paladin",
+        "knight",
+        "monk"
+      ],
+      "effect_kind": "self_buff"
+    },
+    {
+      "id": "spell_heal_party",
+      "name": "Heal Party",
+      "entity_type": "spell",
+      "duration_seconds": 120,
+      "default_warning_seconds": 15,
+      "voice_label": "utura mas sio",
+      "source_page": "https://tibia.fandom.com/wiki/Heal_Party",
+      "words": "utura mas sio",
+      "vocations": [
+        "druid"
+      ],
+      "effect_kind": "heal_over_time"
+    },
+    {
+      "id": "spell_intense_recovery",
+      "name": "Intense Recovery",
+      "entity_type": "spell",
+      "duration_seconds": 60,
+      "default_warning_seconds": 10,
+      "voice_label": "utura gran",
+      "source_page": "https://tibia.fandom.com/wiki/Intense_Recovery",
+      "words": "utura gran",
+      "vocations": [
+        "knight",
+        "paladin"
+      ],
+      "effect_kind": "heal_over_time"
+    },
+    {
+      "id": "spell_invisible",
+      "name": "Invisible",
+      "entity_type": "spell",
+      "duration_seconds": 200,
+      "default_warning_seconds": 15,
+      "voice_label": "utana vid",
+      "source_page": "https://tibia.fandom.com/wiki/Invisible",
+      "words": "utana vid",
+      "vocations": [
+        "druid",
+        "sorcerer"
+      ],
+      "effect_kind": "self_buff"
+    },
+    {
+      "id": "spell_light",
+      "name": "Light",
+      "entity_type": "spell",
+      "duration_seconds": 370,
+      "default_warning_seconds": 30,
+      "voice_label": "utevo lux",
+      "source_page": "https://tibia.fandom.com/wiki/Light",
+      "words": "utevo lux",
+      "vocations": [
+        "druid",
+        "sorcerer",
+        "paladin",
+        "knight",
+        "monk"
+      ],
+      "effect_kind": "light"
+    },
+    {
+      "id": "spell_magic_shield",
+      "name": "Magic Shield",
+      "entity_type": "spell",
+      "duration_seconds": 180,
+      "default_warning_seconds": 15,
+      "voice_label": "utamo vita",
+      "source_page": "https://tibia.fandom.com/wiki/Magic_Shield",
+      "words": "utamo vita",
+      "vocations": [
+        "druid",
+        "sorcerer"
+      ],
+      "effect_kind": "self_buff",
+      "can_end_early": true
+    },
+    {
+      "id": "spell_mentor_other",
+      "name": "Mentor Other",
+      "entity_type": "spell",
+      "duration_seconds": 60,
+      "default_warning_seconds": 10,
+      "voice_label": "uteta tio \"name\"",
+      "source_page": "https://tibia.fandom.com/wiki/Mentor_Other",
+      "words": "uteta tio \"name\"",
+      "vocations": [
+        "monk"
+      ],
+      "effect_kind": "target_buff"
+    },
+    {
+      "id": "spell_protect_party",
+      "name": "Protect Party",
+      "entity_type": "spell",
+      "duration_seconds": 120,
+      "default_warning_seconds": 15,
+      "voice_label": "utamo mas sio",
+      "source_page": "https://tibia.fandom.com/wiki/Protect_Party",
+      "words": "utamo mas sio",
+      "vocations": [
+        "paladin"
+      ],
+      "effect_kind": "party_buff"
+    },
+    {
+      "id": "spell_recovery",
+      "name": "Recovery",
+      "entity_type": "spell",
+      "duration_seconds": 60,
+      "default_warning_seconds": 10,
+      "voice_label": "utura",
+      "source_page": "https://tibia.fandom.com/wiki/Recovery",
+      "words": "utura",
+      "vocations": [
+        "knight",
+        "paladin"
+      ],
+      "effect_kind": "heal_over_time"
+    },
+    {
+      "id": "spell_strong_haste",
+      "name": "Strong Haste",
+      "entity_type": "spell",
+      "duration_seconds": 21,
+      "default_warning_seconds": 10,
+      "voice_label": "utani gran hur",
+      "source_page": "https://tibia.fandom.com/wiki/Strong_Haste",
+      "words": "utani gran hur",
+      "vocations": [
+        "druid",
+        "sorcerer",
+        "monk"
+      ],
+      "effect_kind": "self_buff"
+    },
+    {
+      "id": "spell_summon_druid_familiar",
+      "name": "Summon Druid Familiar",
+      "entity_type": "spell",
+      "duration_seconds": 900,
+      "default_warning_seconds": 30,
+      "voice_label": "utevo gran res dru",
+      "source_page": "https://tibia.fandom.com/wiki/Summon_Druid_Familiar",
+      "words": "utevo gran res dru",
+      "vocations": [
+        "druid"
+      ],
+      "effect_kind": "summon"
+    },
+    {
+      "id": "spell_summon_knight_familiar",
+      "name": "Summon Knight Familiar",
+      "entity_type": "spell",
+      "duration_seconds": 900,
+      "default_warning_seconds": 30,
+      "voice_label": "utevo gran res eq",
+      "source_page": "https://tibia.fandom.com/wiki/Summon_Knight_Familiar",
+      "words": "utevo gran res eq",
+      "vocations": [
+        "knight"
+      ],
+      "effect_kind": "summon"
+    },
+    {
+      "id": "spell_summon_monk_familiar",
+      "name": "Summon Monk Familiar",
+      "entity_type": "spell",
+      "duration_seconds": 900,
+      "default_warning_seconds": 30,
+      "voice_label": "utevo gran res tio",
+      "source_page": "https://tibia.fandom.com/wiki/Summon_Monk_Familiar",
+      "words": "utevo gran res tio",
+      "vocations": [
+        "monk"
+      ],
+      "effect_kind": "summon"
+    },
+    {
+      "id": "spell_summon_paladin_familiar",
+      "name": "Summon Paladin Familiar",
+      "entity_type": "spell",
+      "duration_seconds": 900,
+      "default_warning_seconds": 30,
+      "voice_label": "utevo gran res sac",
+      "source_page": "https://tibia.fandom.com/wiki/Summon_Paladin_Familiar",
+      "words": "utevo gran res sac",
+      "vocations": [
+        "paladin"
+      ],
+      "effect_kind": "summon"
+    },
+    {
+      "id": "spell_summon_sorcerer_familiar",
+      "name": "Summon Sorcerer Familiar",
+      "entity_type": "spell",
+      "duration_seconds": 900,
+      "default_warning_seconds": 30,
+      "voice_label": "utevo gran res ven",
+      "source_page": "https://tibia.fandom.com/wiki/Summon_Sorcerer_Familiar",
+      "words": "utevo gran res ven",
+      "vocations": [
+        "sorcerer"
+      ],
+      "effect_kind": "summon"
+    },
+    {
+      "id": "spell_swift_foot",
+      "name": "Swift Foot",
+      "entity_type": "spell",
+      "duration_seconds": 10,
+      "default_warning_seconds": 3,
+      "voice_label": "utamo tempo san",
+      "source_page": "https://tibia.fandom.com/wiki/Swift_Foot",
+      "words": "utamo tempo san",
+      "vocations": [
+        "paladin"
+      ],
+      "effect_kind": "self_buff"
+    },
+    {
+      "id": "spell_train_party",
+      "name": "Train Party",
+      "entity_type": "spell",
+      "duration_seconds": 120,
+      "default_warning_seconds": 15,
+      "voice_label": "utito mas sio",
+      "source_page": "https://tibia.fandom.com/wiki/Train_Party",
+      "words": "utito mas sio",
+      "vocations": [
+        "knight"
+      ],
+      "effect_kind": "party_buff"
+    },
+    {
+      "id": "spell_ultimate_light",
+      "name": "Ultimate Light",
+      "entity_type": "spell",
+      "duration_seconds": 1980,
+      "default_warning_seconds": 30,
+      "voice_label": "utevo vis lux",
+      "source_page": "https://tibia.fandom.com/wiki/Ultimate_Light",
+      "words": "utevo vis lux",
+      "vocations": [
+        "druid",
+        "sorcerer"
+      ],
+      "effect_kind": "light"
+    }
+  ]
+}
