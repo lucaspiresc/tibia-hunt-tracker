@@ -124,9 +124,8 @@ def list_monitors() -> list[dict]:
 
 
 class ScreenReader:
-    def __init__(self, monitor: dict, references=None) -> None:
+    def __init__(self, monitor: dict) -> None:
         self.monitor = dict(monitor)
-        self.references = references
         self.events: Queue[str] = Queue()
         self.results: Queue[ScreenResult] = Queue(maxsize=1)
         self._stop = Event()
@@ -154,32 +153,19 @@ class ScreenReader:
     def _run(self) -> None:
         try:
             import mss
-            if self.references is not None:
-                from .equipment import EquipmentTracker
-                tracker = EquipmentTracker(self.references)
-            else:
-                tracker = VisualTracker()
+            from .equipment import EquipmentTracker
+            tracker = EquipmentTracker()
             with mss.mss() as capture:
                 while not self._stop.is_set():
                     started = time.monotonic()
                     frame = np.asarray(capture.grab(self.monitor))[:, :, :3].copy()
-                    if self.references is not None:
-                        observations, events, _ = tracker.inspect(frame, started)
-                        for name in events:
-                            self.events.put(name)
-                        labels = {"empty": "vazio", "occupied": "equipado", "unknown": "sem leitura"}
-                        status = " | ".join(f"{name.capitalize()}: {labels[state]}" for name, state in observations.items())
-                        elapsed = time.monotonic() - started
-                        self._publish(ScreenResult(status, elapsed_ms=elapsed*1000))
-                        self._stop.wait(max(0, .2-elapsed))
-                        continue
-                    status = tracker.inspect(frame, started)
-                    for r in tracker.regions:
-                        cv2.rectangle(frame, (r.x, r.y), (r.x+r.width, r.y+r.height), (0, 190, 255), 2)
-                    ratio = min(1.0, 800 / frame.shape[1], 450 / frame.shape[0])
-                    preview = cv2.resize(frame, None, fx=ratio, fy=ratio)
+                    observations, events, _ = tracker.inspect(frame, started)
+                    for name in events:
+                        self.events.put(name)
+                    labels = {"empty": "vazio", "occupied": "equipado", "unknown": "sem leitura"}
+                    status = " | ".join(f"{name.capitalize()}: {labels[state]}" for name, state in observations.items())
                     elapsed = time.monotonic() - started
-                    self._publish(ScreenResult(status, cv2.cvtColor(preview, cv2.COLOR_BGR2RGB), elapsed * 1000))
+                    self._publish(ScreenResult(status, elapsed_ms=elapsed * 1000))
                     self._stop.wait(max(0, .2 - elapsed))
         except Exception as exc:
             self._publish(ScreenResult(f"Leitura interrompida: {exc}"))
