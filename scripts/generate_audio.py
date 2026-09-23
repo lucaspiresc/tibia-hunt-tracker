@@ -13,8 +13,10 @@ from tibia_hunt_tracker.models import TimerConfig  # noqa: E402
 
 
 def main() -> None:
-    phrases: list[str] = []
+    phrases: list[str] = ["Reequipar anel.", "Reequipar colar."]
     for entry in load_catalog(ROOT / "data" / "tracker_catalog.json"):
+        if entry.entity_type != "spell":
+            continue
         config = TimerConfig(
             catalog_id=entry.id,
             name=entry.name,

@@ -17,6 +17,7 @@ if (-not (Test-Path ".venv")) {
     --paths src `
     --add-data "data/tracker_catalog.json;data" `
     --add-data "data/audio;data/audio" `
+    --add-data "data/inventory-reference.jpg;data" `
     --collect-all pyttsx3 `
     run.py
 
