@@ -105,13 +105,6 @@ class AlertDispatcher:
         if event.config.audio_enabled:
             self._executor.submit(self._deliver, event)
 
-    def prepare_equipment(self) -> None:
-        self._executor.submit(self._ensure_phrases, ["Reequipar anel.", "Reequipar colar."])
-
-    def equipment_empty(self, name: str) -> None:
-        if name in ("anel", "colar"):
-            self._executor.submit(self._deliver_phrase, f"Reequipar {name}.")
-
     def close(self) -> None:
         self._executor.shutdown(wait=False, cancel_futures=True)
 

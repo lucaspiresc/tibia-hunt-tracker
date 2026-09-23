@@ -59,7 +59,7 @@ class HuntTrackerApp:
         self.root.configure(bg=BG)
         self.root.protocol("WM_DELETE_WINDOW", self._on_close)
 
-        self.catalog = [entry for entry in load_catalog() if entry.entity_type == "spell"]
+        self.catalog = load_catalog()
         self.catalog_by_id = {entry.id: entry for entry in self.catalog}
         self.configs: dict[str, TimerConfig] = {}
         self.engine = TimerEngine()
@@ -67,7 +67,6 @@ class HuntTrackerApp:
         self.presets = PresetStore()
         self.current_preset = self.presets.names[0]
         self.timer_widgets: dict[str, dict[str, tk.Widget]] = {}
-        self.screen_panel = None
 
         self.search_var = tk.StringVar()
         self.preset_var = tk.StringVar(value=self.current_preset)
@@ -137,7 +136,6 @@ class HuntTrackerApp:
         toggles.grid(row=1, column=0, sticky="ew")
         ttk.Checkbutton(toggles, text="Sempre visível", variable=self.topmost_var, command=self._apply_topmost).pack(side="left")
         ttk.Checkbutton(toggles, text="Modo compacto", variable=self.compact_var, command=self._apply_compact).pack(side="left", padx=(14, 0))
-        ttk.Button(toggles, text="Leitura visual", command=self._open_screen_reader).pack(side="left", padx=10)
         ttk.Label(toggles, textvariable=self.status_var, style="Muted.TLabel").pack(side="right")
 
         self.config_panel = ttk.Frame(self.root, style="Panel.TFrame", padding=14)
@@ -146,7 +144,7 @@ class HuntTrackerApp:
         self.config_panel.grid_columnconfigure(1, weight=1)
         self.config_panel.grid_rowconfigure(1, weight=1)
 
-        ttk.Label(self.config_panel, text="Spells — timers manuais", style="Panel.TLabel", font=("Segoe UI Semibold", 12)).grid(row=0, column=0, sticky="w")
+        ttk.Label(self.config_panel, text="Itens e spells", style="Panel.TLabel", font=("Segoe UI Semibold", 12)).grid(row=0, column=0, sticky="w")
         ttk.Label(self.config_panel, text="Timers selecionados", style="Panel.TLabel", font=("Segoe UI Semibold", 12)).grid(row=0, column=1, sticky="w", padx=(14, 0))
 
         catalog_box = ttk.Frame(self.config_panel, style="Panel.TFrame")
@@ -347,7 +345,7 @@ class HuntTrackerApp:
 
     def _start_hunt(self) -> None:
         if not self.configs:
-            messagebox.showwarning("Sem spells", "Adicione uma spell. Anel e colar são acompanhados em Leitura visual, independentemente da hunt.", parent=self.root)
+            messagebox.showwarning("Sem timers", "Adicione pelo menos um item ou spell.", parent=self.root)
             return
         self.presets.save(self.current_preset, list(self.configs.values()))
         self.alerts.prepare(self.configs.values())
@@ -480,19 +478,10 @@ class HuntTrackerApp:
             self.root.geometry("1040x760")
             self.root.minsize(760, 560)
 
-    def _open_screen_reader(self) -> None:
-        if self.screen_panel is not None and self.screen_panel.window.winfo_exists():
-            self.screen_panel.window.lift()
-            return
-        from .screen_panel import ScreenPanel
-        self.screen_panel = ScreenPanel(self.root, self.alerts)
-
     def _on_close(self) -> None:
         if self.engine.running and not messagebox.askyesno("Sair", "Há uma hunt em andamento. Deseja sair?", parent=self.root):
             return
         self.alerts.close()
-        if self.screen_panel is not None and self.screen_panel.window.winfo_exists():
-            self.screen_panel.close()
         self.root.destroy()
 
 

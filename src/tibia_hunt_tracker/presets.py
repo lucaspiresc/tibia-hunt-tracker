@@ -6,7 +6,6 @@ from pathlib import Path
 from typing import Any
 
 from .models import TimerConfig
-from .catalog import load_catalog
 
 
 def default_data_dir() -> Path:
@@ -19,7 +18,6 @@ def default_data_dir() -> Path:
 class PresetStore:
     def __init__(self, path: Path | None = None) -> None:
         self.path = path or default_data_dir() / "presets.json"
-        self.spell_ids = {entry.id for entry in load_catalog() if entry.entity_type == "spell"}
         self._presets: dict[str, list[TimerConfig]] = {}
         self.load()
 
@@ -34,7 +32,7 @@ class PresetStore:
         try:
             payload: dict[str, Any] = json.loads(self.path.read_text(encoding="utf-8"))
             self._presets = {
-                name: [TimerConfig.from_dict(row) for row in rows if row.get("catalog_id") in self.spell_ids]
+                name: [TimerConfig.from_dict(row) for row in rows]
                 for name, rows in payload.get("presets", {}).items()
             }
         except (OSError, ValueError, TypeError, json.JSONDecodeError):
@@ -49,8 +47,7 @@ class PresetStore:
         clean_name = name.strip()
         if not clean_name:
             raise ValueError("O preset precisa de um nome.")
-        self._presets[clean_name] = [TimerConfig.from_dict(config.to_dict()) for config in configs
-                                     if config.catalog_id in self.spell_ids]
+        self._presets[clean_name] = [TimerConfig.from_dict(config.to_dict()) for config in configs]
         self._write()
 
     def delete(self, name: str) -> None:
@@ -68,7 +65,7 @@ class PresetStore:
     def _write(self) -> None:
         self.path.parent.mkdir(parents=True, exist_ok=True)
         payload = {
-            "schema_version": 3,
+            "schema_version": 4,
             "presets": {
                 name: [config.to_dict() for config in configs]
                 for name, configs in sorted(self._presets.items())
