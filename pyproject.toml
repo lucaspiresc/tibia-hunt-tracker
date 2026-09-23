@@ -4,15 +4,11 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "tibia-hunt-tracker"
-version = "0.4.0"
-description = "Spell timers and passive equipment slot alerts for Tibia"
+version = "0.5.0"
+description = "Manual item and spell timers with spoken alerts for Tibia"
 requires-python = ">=3.11"
 dependencies = [
   "pyttsx3>=2.90",
-  "mss>=10,<11",
-  "numpy>=2,<3",
-  "opencv-python-headless>=4.10,<6",
-  "Pillow>=10,<13",
 ]
 
 [project.scripts]
