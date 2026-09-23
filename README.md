@@ -63,7 +63,9 @@ O app lê `data/tracker_catalog.json`. A base foi derivada de dados estruturados
 
 1. Abra **Leitura visual** e selecione o monitor do jogo.
 2. Deixe o inventário visível, sem outra janela sobre ele. Os itens podem estar equipados.
-3. Clique em **Testar áudio**, depois **Iniciar leitura**. Não há marcação de slots.
+3. Clique em **Selecionar área do inventário** e arraste um retângulo na captura,
+   incluindo todos os slots, bordas e botões superiores. Pode deixar uma pequena margem.
+   Depois clique em **Testar áudio** e **Iniciar leitura**.
 4. Uma passagem de ocupado para vazio, confirmada em três capturas consecutivas,
    fala **Reequipar anel** ou **Reequipar colar** uma única vez. Equipar novamente
    rearma o aviso. Não há contagem estimada da duração dos itens.
@@ -78,12 +80,18 @@ O app inclui uma referência do inventário cinza do manual oficial da CipSoft
 (`data/inventory-reference.jpg`; origem em `data/VISUAL_REFERENCE.md`). A localização
 usa os controles e as bordas do painel, ignorando os interiores dos dez slots.
 Por isso não precisa conhecer cada item nem começar com anel/colar vazios.
-Não usa coordenadas fixas da tela, não pede calibração e não grava capturas.
+O usuário indica a área; o app não procura o inventário no restante da tela.
+Só as coordenadas são salvas em `inventory-area.json`, na pasta de dados do app.
+A captura completa serve apenas para selecionar a área e não é gravada.
+Durante o monitoramento, captura somente o retângulo escolhido.
+Se mover o inventário, selecione novamente. Trocar a resolução ou o monitor
+invalida a seleção salva. Dentro da área ainda é necessário reconhecer a aparência
+do painel: indicar o retângulo não torna qualquer tema compatível.
 Arquivos `equipment.npz` de versões anteriores não são usados.
 Não há consulta de processos,
 enumeração de janelas, leitura de memória, comandos ao jogo ou interceptação de teclas.
 
-A busca pode reencontrar o inventário em outra posição. Testa escalas de 75%,
+A busca fica restrita ao retângulo selecionado. Testa escalas de 75%,
 100%, 125%, 150%, 175% e 200% da referência. Outras escalas e aparências, como
 o painel dourado da Adventurer's Blessing, não estão validadas.
 Correspondências ambíguas e perdas de referência suspendem os
@@ -92,8 +100,8 @@ ocorrido enquanto não havia leitura. Um item visualmente muito parecido com o
 slot vazio também pode não ser reconhecido. Uma sobreposição restrita ao interior
 do slot pode parecer um item: reconhecimento por pixels não distingue todas as oclusões.
 
-O alvo é 5 capturas/s quando os slots estão localizados. Buscas globais são mais
-caras e têm intervalo de pelo menos cinco segundos. O painel mostra o
+O alvo é 5 capturas/s quando os slots estão localizados. A procura dentro do
+retângulo tem intervalo de pelo menos cinco segundos. O painel mostra o
 tempo de processamento; não há garantia de desempenho em qualquer resolução.
 Parar ou fechar o painel interrompe a leitura. Mantenha o tracker fora da área
 do inventário. Nenhum bloqueio de captura é contornado.
