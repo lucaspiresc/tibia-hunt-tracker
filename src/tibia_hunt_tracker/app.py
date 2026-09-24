@@ -5,21 +5,11 @@ import tkinter as tk
 from tkinter import messagebox, simpledialog, ttk
 
 from .alerts import AlertDispatcher
+from .appearance import Appearance, BG, PANEL
 from .catalog import load_catalog
-from .models import CatalogEntry, TimerConfig
+from .models import TimerConfig
 from .presets import PresetStore
 from .timer_engine import EventKind, TimerEngine
-
-
-BG = "#101318"
-PANEL = "#171c24"
-PANEL_2 = "#202733"
-TEXT = "#eef2f7"
-MUTED = "#9aa6b5"
-ACCENT = "#5ec4ff"
-WARNING = "#ffbf47"
-DANGER = "#ff667a"
-SUCCESS = "#5bd6a2"
 
 
 def format_seconds(value: float | int) -> str:
@@ -54,8 +44,9 @@ class HuntTrackerApp:
     def __init__(self, root: tk.Tk) -> None:
         self.root = root
         self.root.title("Tibia Hunt Tracker")
-        self.root.geometry("1040x760")
-        self.root.minsize(760, 560)
+        self.normal_geometry = f"1180x{min(860, max(640, root.winfo_screenheight() - 100))}"
+        self.root.geometry(self.normal_geometry)
+        self.root.minsize(1040, 640)
         self.root.configure(bg=BG)
         self.root.protocol("WM_DELETE_WINDOW", self._on_close)
 
@@ -88,29 +79,7 @@ class HuntTrackerApp:
         self.root.after(200, self._tick)
 
     def _configure_style(self) -> None:
-        style = ttk.Style(self.root)
-        style.theme_use("clam")
-        style.configure("TFrame", background=BG)
-        style.configure("Panel.TFrame", background=PANEL)
-        style.configure("Card.TFrame", background=PANEL_2)
-        style.configure("TLabel", background=BG, foreground=TEXT, font=("Segoe UI", 10))
-        style.configure("Panel.TLabel", background=PANEL, foreground=TEXT, font=("Segoe UI", 10))
-        style.configure("Muted.TLabel", background=BG, foreground=MUTED, font=("Segoe UI", 9))
-        style.configure("Title.TLabel", background=BG, foreground=TEXT, font=("Segoe UI Semibold", 18))
-        style.configure("Clock.TLabel", background=BG, foreground=ACCENT, font=("Consolas", 15, "bold"))
-        style.configure("TimerName.TLabel", background=PANEL_2, foreground=TEXT, font=("Segoe UI Semibold", 10))
-        style.configure("TimerClock.TLabel", background=PANEL_2, foreground=ACCENT, font=("Consolas", 13, "bold"))
-        style.configure("TButton", font=("Segoe UI Semibold", 9), padding=(10, 6))
-        style.configure("Accent.TButton", background=ACCENT, foreground="#081017")
-        style.map("Accent.TButton", background=[("active", "#8ed7ff"), ("disabled", "#40505c")])
-        style.configure("Danger.TButton", background=DANGER, foreground="#ffffff")
-        style.map("Danger.TButton", background=[("active", "#ff8d9c")])
-        style.configure("Treeview", background=PANEL_2, fieldbackground=PANEL_2, foreground=TEXT, rowheight=27, borderwidth=0)
-        style.configure("Treeview.Heading", background="#293242", foreground=TEXT, font=("Segoe UI Semibold", 9))
-        style.map("Treeview", background=[("selected", "#244b66")])
-        style.configure("Horizontal.TProgressbar", troughcolor="#303947", background=ACCENT, bordercolor="#303947")
-        style.configure("TCheckbutton", background=BG, foreground=TEXT)
-        style.map("TCheckbutton", background=[("active", BG)], foreground=[("disabled", MUTED)])
+        self.appearance = Appearance(self.root)
 
     def _build_ui(self) -> None:
         self.root.grid_columnconfigure(0, weight=1)
@@ -119,66 +88,73 @@ class HuntTrackerApp:
         header = ttk.Frame(self.root, padding=(18, 14, 18, 8))
         header.grid(row=0, column=0, sticky="ew")
         header.grid_columnconfigure(1, weight=1)
-        ttk.Label(header, text="Tibia Hunt Tracker", style="Title.TLabel").grid(row=0, column=0, sticky="w")
+        self.title_label = ttk.Label(header, text="Tibia Hunt Tracker", style="Title.TLabel")
+        self.title_label.grid(row=0, column=0, sticky="w")
 
-        preset_bar = ttk.Frame(header)
+        preset_bar = self.preset_bar = ttk.Frame(header)
         preset_bar.grid(row=0, column=1, sticky="e")
         ttk.Label(preset_bar, text="Preset:").pack(side="left", padx=(0, 6))
         self.preset_combo = ttk.Combobox(preset_bar, textvariable=self.preset_var, width=20, state="readonly")
         self.preset_combo.pack(side="left")
         self.preset_combo.bind("<<ComboboxSelected>>", self._preset_selected)
-        ttk.Button(preset_bar, text="Novo", command=self._new_preset).pack(side="left", padx=(6, 2))
+        ttk.Button(preset_bar, text="+ Novo", command=self._new_preset).pack(side="left", padx=(6, 2))
         ttk.Button(preset_bar, text="Salvar", command=self._save_preset).pack(side="left", padx=2)
         ttk.Button(preset_bar, text="Duplicar", command=self._duplicate_preset).pack(side="left", padx=2)
-        ttk.Button(preset_bar, text="Excluir", command=self._delete_preset).pack(side="left", padx=2)
+        ttk.Button(preset_bar, text="Excluir", style="Danger.TButton", command=self._delete_preset).pack(side="left", padx=2)
+        header.bind("<Configure>", self._fit_header)
 
         toggles = ttk.Frame(self.root, padding=(18, 0, 18, 8))
         toggles.grid(row=1, column=0, sticky="ew")
-        ttk.Checkbutton(toggles, text="Sempre visível", variable=self.topmost_var, command=self._apply_topmost).pack(side="left")
-        ttk.Checkbutton(toggles, text="Modo compacto", variable=self.compact_var, command=self._apply_compact).pack(side="left", padx=(14, 0))
-        ttk.Label(toggles, textvariable=self.status_var, style="Muted.TLabel").pack(side="right")
+        ttk.Checkbutton(toggles, text="  Sempre visível", variable=self.topmost_var, command=self._apply_topmost).pack(side="left")
+        ttk.Checkbutton(toggles, text="  Modo compacto", variable=self.compact_var, command=self._apply_compact).pack(side="left", padx=(14, 0))
+        self.status_label = ttk.Label(toggles, textvariable=self.status_var, style="Muted.TLabel")
+        self.status_label.pack(side="right")
 
         self.config_panel = ttk.Frame(self.root, style="Panel.TFrame", padding=14)
         self.config_panel.grid(row=2, column=0, sticky="nsew", padx=18, pady=(0, 10))
-        self.config_panel.grid_columnconfigure(0, weight=1)
-        self.config_panel.grid_columnconfigure(1, weight=1)
+        self.config_panel.grid_columnconfigure(0, weight=1, uniform="config")
+        self.config_panel.grid_columnconfigure(1, weight=1, uniform="config")
         self.config_panel.grid_rowconfigure(1, weight=1)
 
-        ttk.Label(self.config_panel, text="Itens e spells", style="Panel.TLabel", font=("Segoe UI Semibold", 12)).grid(row=0, column=0, sticky="w")
-        ttk.Label(self.config_panel, text="Timers selecionados", style="Panel.TLabel", font=("Segoe UI Semibold", 12)).grid(row=0, column=1, sticky="w", padx=(14, 0))
+        ttk.Label(self.config_panel, text="Itens e spells", style="Section.TLabel").grid(row=0, column=0, sticky="w")
+        ttk.Label(self.config_panel, text="Timers selecionados", style="Section.TLabel").grid(row=0, column=1, sticky="w", padx=(14, 0))
 
         catalog_box = ttk.Frame(self.config_panel, style="Panel.TFrame")
         catalog_box.grid(row=1, column=0, sticky="nsew", pady=(8, 0))
         catalog_box.grid_columnconfigure(0, weight=1)
         catalog_box.grid_rowconfigure(1, weight=1)
-        search_entry = ttk.Entry(catalog_box, textvariable=self.search_var)
-        search_entry.grid(row=0, column=0, sticky="ew", pady=(0, 7))
-        search_entry.bind("<KeyRelease>", lambda _event: self._refresh_catalog())
-        self.catalog_tree = ttk.Treeview(catalog_box, columns=("type", "duration"), show="tree headings", selectmode="browse")
+        search_box = ttk.Frame(catalog_box, style="Panel.TFrame")
+        search_box.grid(row=0, column=0, sticky="ew", pady=(0, 10))
+        search_box.grid_columnconfigure(0, weight=1)
+        ttk.Label(search_box, text="Buscar item ou spell", style="Panel.TLabel").grid(row=0, column=0, sticky="w", pady=(0, 5))
+        self.search_entry = ttk.Entry(search_box, textvariable=self.search_var)
+        self.search_entry.grid(row=1, column=0, sticky="ew")
+        self.search_var.trace_add("write", lambda *_args: self._refresh_catalog())
+        self.catalog_tree = ttk.Treeview(catalog_box, columns=("type", "duration"), show="tree headings", selectmode="browse", height=5)
         self.catalog_tree.heading("#0", text="Nome")
         self.catalog_tree.heading("type", text="Tipo")
         self.catalog_tree.heading("duration", text="Duração")
-        self.catalog_tree.column("#0", width=255)
-        self.catalog_tree.column("type", width=70, anchor="center")
-        self.catalog_tree.column("duration", width=80, anchor="center")
+        self.catalog_tree.column("#0", width=240, minwidth=150)
+        self.catalog_tree.column("type", width=54, minwidth=50, stretch=False, anchor="center")
+        self.catalog_tree.column("duration", width=78, minwidth=78, stretch=False, anchor="center")
         self.catalog_tree.grid(row=1, column=0, sticky="nsew")
         self.catalog_tree.bind("<Double-1>", lambda _event: self._add_catalog_selection())
         catalog_scroll = ttk.Scrollbar(catalog_box, orient="vertical", command=self.catalog_tree.yview)
         catalog_scroll.grid(row=1, column=1, sticky="ns")
         self.catalog_tree.configure(yscrollcommand=catalog_scroll.set)
-        ttk.Button(catalog_box, text="Adicionar →", style="Accent.TButton", command=self._add_catalog_selection).grid(row=2, column=0, sticky="e", pady=(8, 0))
+        ttk.Button(catalog_box, text="+ Adicionar", style="Accent.TButton", command=self._add_catalog_selection).grid(row=2, column=0, sticky="e", pady=(8, 0))
 
         active_box = ttk.Frame(self.config_panel, style="Panel.TFrame")
         active_box.grid(row=1, column=1, sticky="nsew", padx=(14, 0), pady=(8, 0))
         active_box.grid_columnconfigure(0, weight=1)
         active_box.grid_rowconfigure(0, weight=1)
-        self.active_tree = ttk.Treeview(active_box, columns=("duration", "warning"), show="tree headings", selectmode="browse")
+        self.active_tree = ttk.Treeview(active_box, columns=("duration", "warning"), show="tree headings", selectmode="browse", height=5)
         self.active_tree.heading("#0", text="Nome")
         self.active_tree.heading("duration", text="Duração")
         self.active_tree.heading("warning", text="Aviso")
-        self.active_tree.column("#0", width=230)
-        self.active_tree.column("duration", width=82, anchor="center")
-        self.active_tree.column("warning", width=72, anchor="center")
+        self.active_tree.column("#0", width=240, minwidth=150)
+        self.active_tree.column("duration", width=86, minwidth=86, stretch=False, anchor="center")
+        self.active_tree.column("warning", width=64, minwidth=64, stretch=False, anchor="center")
         self.active_tree.grid(row=0, column=0, sticky="nsew", columnspan=4)
         self.active_tree.bind("<<TreeviewSelect>>", self._active_selected)
         self.active_tree.bind("<Double-1>", self._active_double_click)
@@ -187,16 +163,22 @@ class HuntTrackerApp:
         self.active_tree.configure(yscrollcommand=active_scroll.set)
 
         edit = ttk.Frame(active_box, style="Panel.TFrame")
-        edit.grid(row=1, column=0, columnspan=4, sticky="ew", pady=(10, 0))
-        ttk.Label(edit, text="Duração", style="Panel.TLabel").grid(row=0, column=0, sticky="w")
-        ttk.Entry(edit, textvariable=self.duration_var, width=10).grid(row=1, column=0, sticky="w")
-        ttk.Label(edit, text="Avisar antes (s)", style="Panel.TLabel").grid(row=0, column=1, sticky="w", padx=(10, 0))
-        ttk.Entry(edit, textvariable=self.warning_var, width=9).grid(row=1, column=1, sticky="w", padx=(10, 0))
-        ttk.Label(edit, text="Texto falado", style="Panel.TLabel").grid(row=0, column=2, sticky="w", padx=(10, 0))
-        ttk.Entry(edit, textvariable=self.voice_label_var, width=24).grid(row=1, column=2, sticky="ew", padx=(10, 0))
-        ttk.Checkbutton(edit, text="Áudio falado", variable=self.audio_var).grid(row=1, column=3, padx=(12, 0))
-        ttk.Button(edit, text="Aplicar", command=self._apply_timer_edit).grid(row=1, column=4, padx=(12, 2))
-        ttk.Button(edit, text="Remover", command=self._remove_selected_timer).grid(row=1, column=5, padx=2)
+        edit.grid(row=1, column=0, columnspan=4, sticky="ew", pady=(12, 0))
+        edit.grid_columnconfigure(2, weight=1)
+        for column, label in enumerate(("Duração", "Avisar antes (s)", "Texto falado")):
+            ttk.Label(edit, text=label, style="Panel.TLabel").grid(
+                row=0, column=column, sticky="w", padx=(0 if column == 0 else 10, 0), pady=(0, 5))
+        ttk.Entry(edit, textvariable=self.duration_var, width=8).grid(row=1, column=0, sticky="ew")
+        ttk.Entry(edit, textvariable=self.warning_var, width=8).grid(row=1, column=1, sticky="ew", padx=(10, 0))
+        ttk.Entry(edit, textvariable=self.voice_label_var, width=12).grid(row=1, column=2, sticky="ew", padx=(10, 0))
+        edit_actions = ttk.Frame(edit, style="Panel.TFrame")
+        edit_actions.grid(row=2, column=0, columnspan=3, sticky="ew", pady=(10, 0))
+        ttk.Checkbutton(edit_actions, text="  Áudio falado", variable=self.audio_var,
+                        style="Panel.TCheckbutton").pack(side="left")
+        ttk.Button(edit_actions, text="Remover", style="Danger.TButton",
+                   command=self._remove_selected_timer).pack(side="right")
+        ttk.Button(edit_actions, text="Aplicar", style="Accent.TButton",
+                   command=self._apply_timer_edit).pack(side="right", padx=(8, 8))
 
         lower = ttk.Frame(self.root, padding=(18, 0, 18, 10))
         lower.grid(row=3, column=0, sticky="nsew")
@@ -204,9 +186,9 @@ class HuntTrackerApp:
         lower.grid_rowconfigure(1, weight=1)
         huntbar = ttk.Frame(lower)
         huntbar.grid(row=0, column=0, sticky="ew", pady=(0, 9))
-        self.start_button = ttk.Button(huntbar, text="INICIAR HUNT", style="Accent.TButton", command=self._start_hunt)
+        self.start_button = ttk.Button(huntbar, text="▶  Iniciar hunt", style="Accent.TButton", command=self._start_hunt)
         self.start_button.pack(side="left")
-        self.stop_button = ttk.Button(huntbar, text="TERMINAR HUNT", style="Danger.TButton", command=self._stop_hunt, state="disabled")
+        self.stop_button = ttk.Button(huntbar, text="■  Terminar hunt", style="Danger.TButton", command=self._stop_hunt, state="disabled")
         self.stop_button.pack(side="left", padx=(8, 0))
         ttk.Label(huntbar, textvariable=self.hunt_time_var, style="Clock.TLabel").pack(side="right")
 
@@ -224,6 +206,15 @@ class HuntTrackerApp:
         self.timer_list.bind("<Configure>", lambda _event: self.timer_canvas.configure(scrollregion=self.timer_canvas.bbox("all")))
         self.timer_canvas.bind("<Configure>", lambda event: self.timer_canvas.itemconfigure(self.timer_window, width=event.width))
 
+    def _fit_header(self, event) -> None:
+        if self.compact_var.get():
+            return
+        needed = self.title_label.winfo_reqwidth() + self.preset_bar.winfo_reqwidth() + 60
+        if event.width < needed:
+            self.preset_bar.grid(row=1, column=0, columnspan=2, sticky="w", pady=(8, 0))
+        else:
+            self.preset_bar.grid(row=0, column=1, columnspan=1, sticky="e", pady=0)
+
     def _refresh_catalog(self) -> None:
         query = self.search_var.get().strip().casefold()
         selected = set(self.configs)
@@ -234,7 +225,7 @@ class HuntTrackerApp:
                 continue
             item_type = "Spell" if entry.entity_type == "spell" else "Item"
             label = entry.name if not entry.words else f"{entry.name} ({entry.words})"
-            self.catalog_tree.insert("", "end", iid=entry.id, text=label, values=(item_type, format_seconds(entry.duration_seconds)))
+            self.catalog_tree.insert("", "end", iid=entry.id, text="  " + label, image=self.appearance.icon(entry), values=(item_type, format_seconds(entry.duration_seconds)))
 
     def _add_catalog_selection(self) -> None:
         if self._configuration_locked():
@@ -257,7 +248,8 @@ class HuntTrackerApp:
         self.active_tree.delete(*self.active_tree.get_children())
         for config in self.configs.values():
             self.active_tree.insert(
-                "", "end", iid=config.catalog_id, text=config.name,
+                "", "end", iid=config.catalog_id, text="  " + config.name,
+                image=self.appearance.icon(self.catalog_by_id[config.catalog_id]),
                 values=(format_seconds(config.duration_seconds), f"{config.warning_seconds}s"),
             )
         if select_id and self.active_tree.exists(select_id):
@@ -328,19 +320,28 @@ class HuntTrackerApp:
             ttk.Label(self.timer_list, text="Nenhum timer selecionado.", style="Panel.TLabel").pack(pady=24)
             return
         for config in self.configs.values():
-            card = ttk.Frame(self.timer_list, style="Card.TFrame", padding=(12, 9))
-            card.pack(fill="x", pady=4)
+            card = ttk.Frame(self.timer_list, style="Card.TFrame", padding=(14, 8))
+            card.pack(fill="x", pady=5)
             card.grid_columnconfigure(1, weight=1)
+            icon = ttk.Label(card, image=self.appearance.icon(self.catalog_by_id[config.catalog_id]),
+                             style="TimerName.TLabel")
+            icon.grid(row=0, column=0, rowspan=2, padx=(0, 12))
             name = ttk.Label(card, text=config.name, style="TimerName.TLabel")
-            name.grid(row=0, column=0, sticky="w", padx=(0, 14))
-            progress = ttk.Progressbar(card, maximum=config.duration_seconds, value=config.duration_seconds)
-            progress.grid(row=0, column=1, sticky="ew", padx=(0, 14))
+            name.grid(row=0, column=1, sticky="w")
+            detail = ttk.Label(card, text=f"Aviso {config.warning_seconds}s antes" if config.warning_seconds else "Sem pré-alerta",
+                               style="CardMuted.TLabel")
+            detail.grid(row=1, column=1, sticky="w", pady=(3, 0))
             clock = ttk.Label(card, text=format_seconds(config.duration_seconds), style="TimerClock.TLabel", width=9, anchor="e")
-            clock.grid(row=0, column=2, sticky="e")
-            reset = ttk.Button(card, text="↻", width=3, command=lambda timer_id=config.catalog_id: self._manual_reset(timer_id))
-            reset.grid(row=0, column=3, padx=(8, 0))
-            for widget in (card, name, clock):
+            clock.grid(row=0, column=2, rowspan=2, sticky="e", padx=(8, 0))
+            reset = ttk.Button(card, text="Reiniciar timer", image=self.appearance.reset_icon(),
+                               compound="none", width=0, padding=(6, 4),
+                               command=lambda timer_id=config.catalog_id: self._manual_reset(timer_id))
+            reset.grid(row=0, column=3, rowspan=2, padx=(12, 0))
+            progress = ttk.Progressbar(card, maximum=config.duration_seconds, value=config.duration_seconds)
+            progress.grid(row=2, column=1, columnspan=2, sticky="ew", pady=(8, 0))
+            for widget in (card, icon, name, detail, clock):
                 widget.bind("<Double-1>", lambda _event, timer_id=config.catalog_id: self._manual_reset(timer_id))
+            name.bind("<Configure>", lambda event, label=name: label.configure(wraplength=max(60, event.width)))
             self.timer_widgets[config.catalog_id] = {"clock": clock, "progress": progress}
 
     def _start_hunt(self) -> None:
@@ -471,12 +472,16 @@ class HuntTrackerApp:
     def _apply_compact(self) -> None:
         if self.compact_var.get():
             self.config_panel.grid_remove()
-            self.root.geometry("520x460")
-            self.root.minsize(440, 320)
+            self.preset_bar.grid_remove()
+            self.status_label.pack_forget()
+            self.root.geometry("560x600")
+            self.root.minsize(520, 440)
         else:
             self.config_panel.grid()
-            self.root.geometry("1040x760")
-            self.root.minsize(760, 560)
+            self.preset_bar.grid()
+            self.status_label.pack(side="right")
+            self.root.geometry(self.normal_geometry)
+            self.root.minsize(1040, 640)
 
     def _on_close(self) -> None:
         if self.engine.running and not messagebox.askyesno("Sair", "Há uma hunt em andamento. Deseja sair?", parent=self.root):
