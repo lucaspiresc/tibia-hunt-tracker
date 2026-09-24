@@ -6,7 +6,7 @@ from tkinter import messagebox, simpledialog, ttk
 
 from .alerts import AlertDispatcher
 from .appearance import Appearance, BG, PANEL
-from .catalog import load_catalog
+from .catalog import load_catalog, project_root
 from .models import TimerConfig
 from .presets import PresetStore
 from .timer_engine import EventKind, TimerEngine
@@ -44,6 +44,8 @@ class HuntTrackerApp:
     def __init__(self, root: tk.Tk) -> None:
         self.root = root
         self.root.title("Tibia Hunt Tracker")
+        self.window_icon = tk.PhotoImage(file=str(project_root() / "data" / "app-icon.png"))
+        self.root.iconphoto(True, self.window_icon)
         self.normal_geometry = f"1180x{min(860, max(640, root.winfo_screenheight() - 100))}"
         self.root.geometry(self.normal_geometry)
         self.root.minsize(1040, 640)
