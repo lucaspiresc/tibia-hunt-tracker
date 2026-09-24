@@ -24,9 +24,11 @@ jobs:
         run: |
           pyinstaller --noconfirm --clean --onefile --windowed `
             --name TibiaHuntTracker `
+            --icon "data/app-icon.ico" `
             --paths src `
             --add-data "data/tracker_catalog.json;data" `
             --add-data "data/audio;data/audio" `
+            --add-data "data/app-icon.png;data" `
             --collect-all pyttsx3 `
             run.py
       - name: Upload executable
